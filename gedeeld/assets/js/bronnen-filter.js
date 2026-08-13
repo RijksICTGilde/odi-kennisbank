@@ -104,6 +104,14 @@
         if (past) zichtbaar++;
       }
 
+      // Laat de facetlabels de zoekterm markeren, zodat je ziet waarom een
+      // filteroptie overblijft. query werkt alleen op de attribuut-route van
+      // nldd-text-cell, niet op slotted inhoud.
+      for (const rij of rijen) {
+        const cel = rij.querySelector("nldd-text-cell");
+        if (cel) cel.setAttribute("query", term);
+      }
+
       if (tellerEl) tellerEl.textContent = String(zichtbaar);
       if (geenResultaten) geenResultaten.hidden = zichtbaar !== 0;
       if (wisKnop) wisKnop.toggleAttribute("hidden", !actief);
@@ -141,6 +149,16 @@
         pasToe();
       });
     });
+
+    // De knop op smalle schermen opent de sheet van nldd-sidebar-section.
+    const openKnop = document.getElementById("filters-openen");
+    const sectie = document.querySelector("nldd-sidebar-section");
+    if (openKnop && sectie) {
+      openKnop.addEventListener("click", () => {
+        if (typeof sectie.show === "function") sectie.show();
+        else if (typeof sectie.toggle === "function") sectie.toggle();
+      });
+    }
 
     if (wisKnop) {
       wisKnop.addEventListener("click", () => {

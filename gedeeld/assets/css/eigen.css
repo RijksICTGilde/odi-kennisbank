@@ -24,6 +24,21 @@ body {
 
 /* Het filterpaneel en de resultaten naast elkaar. Onder de md-breakpoint
    (641px) stapelen ze; NLDD's eigen breakpoints zijn sm <=640, md 641-1007. */
+/* De filterknop hoort alleen bij de ingeklapte (sheet-)staat van
+   nldd-sidebar-section; op brede schermen staan de filters gewoon links. */
+#filters-openen {
+  display: none;
+}
+
+nldd-sidebar-section[collapsed] .filter-kop {
+  display: none;
+}
+
+nldd-sidebar-section[collapsed] #filters-openen {
+  display: inline-flex;
+  margin-block-end: var(--primitives-space-12);
+}
+
 .filter-layout {
   display: grid;
   gap: var(--primitives-space-24);
@@ -32,7 +47,22 @@ body {
 }
 
 @media (max-width: 1007px) {
-  .filter-layout {
+  /* De filterknop hoort alleen bij de ingeklapte (sheet-)staat van
+   nldd-sidebar-section; op brede schermen staan de filters gewoon links. */
+#filters-openen {
+  display: none;
+}
+
+nldd-sidebar-section[collapsed] .filter-kop {
+  display: none;
+}
+
+nldd-sidebar-section[collapsed] #filters-openen {
+  display: inline-flex;
+  margin-block-end: var(--primitives-space-12);
+}
+
+.filter-layout {
     grid-template-columns: 1fr;
   }
 }
@@ -108,3 +138,4 @@ nldd-card[href]:not([href=""]):hover,
 nldd-card[button]:hover {
   --_background-color: var(--primitives-color-neutral-50);
 }
+

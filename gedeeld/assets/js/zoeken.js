@@ -85,6 +85,9 @@
           // Eén regel context, genoeg om een treffer te herkennen.
           cel.setAttribute("supporting-text", bron.content.slice(0, 120));
         }
+        // query laat het component de zoekterm vetgedrukt markeren. Werkt
+        // alleen op de attribuut-route, niet op slotted inhoud.
+        cel.setAttribute("query", term);
         rij.appendChild(cel);
         lijst.appendChild(rij);
       });

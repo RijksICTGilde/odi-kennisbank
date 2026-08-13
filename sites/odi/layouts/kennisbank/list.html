@@ -39,16 +39,26 @@
   ></nldd-button>
 </nldd-simple-section>
 
-<nldd-simple-section padding-top="0">
-  <div class="filter-layout">
-    <div>
+{{- /* nldd-sidebar-section in plaats van een eigen grid: op smalle schermen
+       verhuist de zijbalk zelf naar een sheet met een knop, zoals in Wies.
+       Een eigen media-query stapelde de filters simpelweg boven de resultaten,
+       waardoor je op mobiel eerst langs alle facetten moest scrollen. */ -}}
+<nldd-sidebar-section
+  padding-top="0"
+  width="1440px"
+  sidebar-label="Filteren"
+  translations='{"components.sidebar-section.sheet-dismiss-action": "Klaar"}'
+>
+  <div slot="sidebar">
       {{- /* Filtergroep als nldd-list met checkbox-rijen, conform het patroon
              in Wies (parts/filter_sidebar.html): de rij is de checkbox, de
              nldd-checkbox erin is decoratief. De echte invoer staat verborgen
              achter de lijst zodat de waarde meegaat en het script erop kan
              spiegelen. */ -}}
       <nldd-container>
-        <nldd-title size="6"><h2>Filteren</h2></nldd-title>
+        {{- /* Op smalle schermen draagt de sheet zelf al de titel "Filteren"
+               (sidebar-label), dus die kop is daar dubbelop. */ -}}
+        <nldd-title size="6" class="filter-kop"><h2>Filteren</h2></nldd-title>
         <nldd-spacer size="8"></nldd-spacer>
         <nldd-button
           id="filters-wissen"
@@ -81,7 +91,17 @@
       </nldd-container>
     </div>
 
-    <div>
+  <div>
+      {{- /* nldd-sidebar-section klapt zichzelf in op smalle schermen maar
+             levert geen knop om de sheet te openen; dat is aan de consument.
+             Deze knop verschijnt alleen in ingeklapte staat, via CSS. */ -}}
+      <nldd-button
+        id="filters-openen"
+        variant="secondary"
+        size="sm"
+        text="Filteren"
+        start-icon="filter"
+      ></nldd-button>
       <nldd-rich-text>
         <p><strong id="zichtbaar-aantal">{{ len $bronnen }}</strong> van {{ len $bronnen }} bronnen</p>
       </nldd-rich-text>
@@ -116,8 +136,7 @@
         </div>
         {{- end -}}
       </div>
-    </div>
   </div>
-</nldd-simple-section>
+</nldd-sidebar-section>
 {{ end }}
 
