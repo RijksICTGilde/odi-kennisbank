@@ -18,25 +18,6 @@
   <nldd-spacer size="16"></nldd-spacer>
   <nldd-rich-text><p>{{ . }}</p></nldd-rich-text>
   {{ end }}
-  {{- /* Bijdragen staat boven de filters: wie hier komt om iets toe te voegen
-         hoeft niet eerst langs 144 kaarten te scrollen. */ -}}
-  <nldd-spacer size="16"></nldd-spacer>
-  {{- /* Zoeken binnen de kennisbank werkt samen met de facetten: het is een
-         extra voorwaarde in dezelfde filterslag, geen aparte zoekpagina. */ -}}
-  <nldd-search-field
-    id="bronnen-zoek"
-    width="full"
-    accessible-label="Zoek in de bronnen"
-    placeholder="Zoek op titel, toelichting of organisatie..."
-  ></nldd-search-field>
-  <nldd-spacer size="12"></nldd-spacer>
-  <nldd-button
-    variant="secondary"
-    size="sm"
-    href="{{ "kennisbank/bijdragen/" | relURL }}"
-    text="Een bron toevoegen"
-    start-icon="plus"
-  ></nldd-button>
 </nldd-simple-section>
 
 {{- /* nldd-sidebar-section in plaats van een eigen grid: op smalle schermen
@@ -49,13 +30,16 @@
   sidebar-label="Filteren"
   translations='{"components.sidebar-section.sheet-dismiss-action": "Klaar"}'
 >
-  <div slot="sidebar">
+  {{- /* De slotted node is een nldd-container met padding, zoals in Wies
+         (assignments.html). Met een kale div lopen de lijstrijen buiten de
+         kolom en vallen de aantallen tegen de rand. */ -}}
+  <nldd-container slot="sidebar" padding="16">
       {{- /* Filtergroep als nldd-list met checkbox-rijen, conform het patroon
              in Wies (parts/filter_sidebar.html): de rij is de checkbox, de
              nldd-checkbox erin is decoratief. De echte invoer staat verborgen
              achter de lijst zodat de waarde meegaat en het script erop kan
              spiegelen. */ -}}
-      <nldd-container>
+      <nldd-container padding="0">
         {{- /* Op smalle schermen draagt de sheet zelf al de titel "Filteren"
                (sidebar-label), dus die kop is daar dubbelop. */ -}}
         <nldd-title size="6" class="filter-kop"><h2>Filteren</h2></nldd-title>
@@ -89,24 +73,47 @@
           {{- end -}}
         {{- end -}}
       </nldd-container>
-    </div>
+  </nldd-container>
 
   <div>
       {{- /* nldd-sidebar-section klapt zichzelf in op smalle schermen maar
-             levert geen knop om de sheet te openen; dat is aan de consument.
-             Deze knop verschijnt alleen in ingeklapte staat, via CSS. */ -}}
-      <nldd-button
-        id="filters-openen"
-        variant="secondary"
-        size="sm"
-        text="Filteren"
-        start-icon="filter"
-      ></nldd-button>
-      <nldd-rich-text>
+      {{- /* Toolbar zoals in Wies (filter_and_card_container_assignments.html):
+             zoeken in het start-slot, acties in end. De toolbar verdeelt zelf
+             de ruimte en schuift naar een overflowmenu wat niet past -- dat
+             deed onze eigen knoppenrij niet.
+
+             De filterknop opent de sheet van nldd-sidebar-section, dat zelf
+             geen trigger meelevert, en staat alleen in ingeklapte staat. */ -}}
+      <nldd-toolbar label="Zoeken en filteren">
+        <nldd-toolbar-item slot="start" width="560px" max-width="560px" min-width="240px">
+          <nldd-search-field
+            id="bronnen-zoek"
+            accessible-label="Zoek in de bronnen"
+            placeholder="Zoek op titel, toelichting of organisatie"
+          ></nldd-search-field>
+        </nldd-toolbar-item>
+        <nldd-toolbar-item id="filter-item" slot="end">
+          <nldd-button
+            id="filters-openen"
+            variant="secondary"
+            start-icon="list-decreasing-lines"
+            text="Filteren"
+          ></nldd-button>
+        </nldd-toolbar-item>
+        <nldd-toolbar-item slot="end">
+          <nldd-button
+            variant="secondary"
+            start-icon="plus"
+            href="{{ "kennisbank/bijdragen/" | relURL }}"
+            text="Een bron toevoegen"
+          ></nldd-button>
+        </nldd-toolbar-item>
+      </nldd-toolbar>
+      <nldd-spacer size="16"></nldd-spacer>
+      <nldd-rich-text spacing="flat">
         <p><strong id="zichtbaar-aantal">{{ len $bronnen }}</strong> van {{ len $bronnen }} bronnen</p>
       </nldd-rich-text>
       <nldd-spacer size="16"></nldd-spacer>
-
       <div id="geen-resultaten" class="geen-resultaten" hidden>
         <nldd-inline-dialog
           icon="search"

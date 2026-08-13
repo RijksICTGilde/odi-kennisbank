@@ -26,17 +26,29 @@ body {
    (641px) stapelen ze; NLDD's eigen breakpoints zijn sm <=640, md 641-1007. */
 /* De filterknop hoort alleen bij de ingeklapte (sheet-)staat van
    nldd-sidebar-section; op brede schermen staan de filters gewoon links. */
-#filters-openen {
+#filter-item {
   display: none;
+}
+
+nldd-sidebar-section[collapsed] #filter-item {
+  display: contents;
 }
 
 nldd-sidebar-section[collapsed] .filter-kop {
   display: none;
 }
 
-nldd-sidebar-section[collapsed] #filters-openen {
-  display: inline-flex;
-  margin-block-end: var(--primitives-space-12);
+/* De teller hoort bij de knoppen op dezelfde regel, niet als eigen alinea. */
+.bronnen-telling p {
+  margin: 0;
+}
+
+/* De filterkolom scrollt mee met de pagina in plaats van in een eigen
+   scrollgebied: met vijf facetgroepen is de lijst ruim 3000px hoog, en een
+   binnenin scrollend paneel naast een scrollende pagina geeft twee
+   concurrerende scrollbalken. */
+[slot="sidebar"] {
+  overflow: visible;
 }
 
 .filter-layout {
@@ -49,17 +61,29 @@ nldd-sidebar-section[collapsed] #filters-openen {
 @media (max-width: 1007px) {
   /* De filterknop hoort alleen bij de ingeklapte (sheet-)staat van
    nldd-sidebar-section; op brede schermen staan de filters gewoon links. */
-#filters-openen {
+#filter-item {
   display: none;
+}
+
+nldd-sidebar-section[collapsed] #filter-item {
+  display: contents;
 }
 
 nldd-sidebar-section[collapsed] .filter-kop {
   display: none;
 }
 
-nldd-sidebar-section[collapsed] #filters-openen {
-  display: inline-flex;
-  margin-block-end: var(--primitives-space-12);
+/* De teller hoort bij de knoppen op dezelfde regel, niet als eigen alinea. */
+.bronnen-telling p {
+  margin: 0;
+}
+
+/* De filterkolom scrollt mee met de pagina in plaats van in een eigen
+   scrollgebied: met vijf facetgroepen is de lijst ruim 3000px hoog, en een
+   binnenin scrollend paneel naast een scrollende pagina geeft twee
+   concurrerende scrollbalken. */
+[slot="sidebar"] {
+  overflow: visible;
 }
 
 .filter-layout {
