@@ -59,11 +59,19 @@ body {
   display: grid;
   gap: var(--primitives-space-16);
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  align-items: start;
+}
+
+/* Kaarten in een rij even hoog: de rasterrij rekt het wrapper-element op, en
+   flex + height:100% geeft die hoogte door aan de kaart erbinnen. Zonder dat
+   laatste blijft een korte kaart op zijn eigen hoogte staan en houd je een gat
+   onder de kaart in plaats van een gelijke rij. */
+.bron-item {
+  display: flex;
 }
 
 .bron-item > nldd-card {
   width: 100%;
+  height: 100%;
 }
 
 /* Knop in markdown-content (bijv. "Nieuwe bron aanmaken op GitHub"). In
@@ -82,4 +90,21 @@ body {
 .knop-link:hover,
 .knop-link:focus-visible {
   text-decoration: underline;
+}
+
+/* Hover op klikbare kaarten, overgenomen uit app.css van Wies.
+
+   nldd-card tekent zelf geen hover-staat. --_background-color is de interne
+   variabele die de kaart uitleest; die erft de shadow DOM in, zodat de kaart
+   zijn eigen radius en clipping houdt. De neutrale schaal loopt in licht naar
+   donkerder en in donker naar lichter, dus een token dekt beide thema's.
+
+   [href]:not([href=""]) en niet [href]: het component reflecteert zijn eigen
+   default (href = '') naar het attribuut, dus elke kaart draagt in de DOM een
+   href="". Een attribuutselector toetst op aanwezigheid, niet op inhoud, dus
+   [href] zou ook de kaarten zonder link oplichten -- bij ons de bronnen en
+   tools waarvan de locatie nog niet bekend is. */
+nldd-card[href]:not([href=""]):hover,
+nldd-card[button]:hover {
+  --_background-color: var(--primitives-color-neutral-50);
 }
