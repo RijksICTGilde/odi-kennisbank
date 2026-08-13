@@ -24,6 +24,16 @@ body {
 
 /* Het filterpaneel en de resultaten naast elkaar. Onder de md-breakpoint
    (641px) stapelen ze; NLDD's eigen breakpoints zijn sm <=640, md 641-1007. */
+/* De filterknop hoort alleen bij de ingeklapte staat: staan de filters al in
+   de linkerkolom, dan opent hij een sheet met exact dezelfde inhoud.
+
+   De regel staat op de knop en niet op het nldd-toolbar-item: de toolbar meet
+   zijn items op om te bepalen wat naar het overflowmenu gaat en beheert hun
+   hidden-attribuut zelf, dus daar iets aan veranderen verstoort die meting. */
+nldd-sidebar-section:not([collapsed]) #filter-item {
+  display: none;
+}
+
 /* De sheet draagt zelf al de titel "Filteren" via sidebar-label. */
 nldd-sidebar-section[collapsed] .filter-kop {
   display: none;
@@ -50,7 +60,17 @@ nldd-sidebar-section[collapsed] .filter-kop {
 }
 
 @media (max-width: 1007px) {
-  /* De sheet draagt zelf al de titel "Filteren" via sidebar-label. */
+  /* De filterknop hoort alleen bij de ingeklapte staat: staan de filters al in
+   de linkerkolom, dan opent hij een sheet met exact dezelfde inhoud.
+
+   De regel staat op de knop en niet op het nldd-toolbar-item: de toolbar meet
+   zijn items op om te bepalen wat naar het overflowmenu gaat en beheert hun
+   hidden-attribuut zelf, dus daar iets aan veranderen verstoort die meting. */
+nldd-sidebar-section:not([collapsed]) #filter-item {
+  display: none;
+}
+
+/* De sheet draagt zelf al de titel "Filteren" via sidebar-label. */
 nldd-sidebar-section[collapsed] .filter-kop {
   display: none;
 }

@@ -159,6 +159,7 @@
         else if (typeof sectie.toggle === "function") sectie.toggle();
       };
       openKnop.addEventListener("click", openen);
+
       // In het overflowmenu toont de toolbar een KLOON van het menu-item en
       // meldt de keuze terug als 'select' op het origineel; daarom luisteren we
       // daarop en niet op een klik. Zie primary_button_menu_item.html in Wies.
