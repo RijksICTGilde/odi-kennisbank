@@ -1,0 +1,21 @@
+{{- /* Zoeken als sheet: volgens het design system voor "secundaire inhoud die
+       context behoudt". Een modal zou de pagina onnodig onderbreken.
+       De index wordt pas bij openen opgehaald; zie zoeken.js. */ -}}
+<nldd-sheet id="zoek-sheet" data-index="{{ "index.json" | relURL }}" accessible-label="Zoeken">
+  <nldd-container padding="16" layout="stack" gap="16">
+    <nldd-title size="4"><h2>Zoeken</h2></nldd-title>
+    <nldd-search-field
+      id="zoek-veld"
+      width="full"
+      accessible-label="Zoek in de bronnen"
+      placeholder="Zoek op titel of inhoud..."
+    ></nldd-search-field>
+    <nldd-inline-dialog
+      id="zoek-leeg"
+      icon="search"
+      text="Niets gevonden"
+      hidden
+    ></nldd-inline-dialog>
+    <nldd-list id="zoek-resultaten" variant="simple" accessible-label="Zoekresultaten"></nldd-list>
+  </nldd-container>
+</nldd-sheet>

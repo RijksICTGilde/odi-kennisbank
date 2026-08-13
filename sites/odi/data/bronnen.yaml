@@ -1,0 +1,33 @@
+# De kennisbronnen en tools waar ODI Start naartoe verwijst.
+#
+# Volgorde is betekenisvol: de Kennisbank staat voorop. Die bevat de kennis
+# zelf — kaders, handreikingen, sjablonen. Wies en Samenwerkruimten helpen je
+# bij mensen en teams, en zijn daarmee ondersteunend aan die kennis.
+#
+# Uitgangspunt van Phase 0 is 'as-is': we verwijzen naar wat er al staat en
+# herbouwen niets. Een bron zonder url krijgt op de site geen doodlopende link
+# maar een zichtbare 'nog geen link'-status.
+
+kennisbronnen:
+  - naam: Kennisbank
+    omschrijving: Kaders, handreikingen, sjablonen en opleidingen over digitalisering bij de Rijksoverheid.
+    # Relatief pad: de Kennisbank wordt als submap van dezelfde site
+    # gepubliceerd, dus dit werkt zowel lokaal als op GitHub Pages.
+    url: kennisbank/
+  - naam: Wies
+    omschrijving: Vind collega's, hun expertise en de opdrachten waar ze op zitten.
+    url: https://wies.rijksorganisatieodi.nl
+  - naam: Samenwerkruimten
+    omschrijving: Teams en projecten met hun gedeelde documenten.
+    url: ""
+
+tools:
+  - naam: ZAD
+    omschrijving: Zakelijke Architectuur Documenten — architectuurdocumentatie en standaarden.
+    url: https://zad.rijksapps.nl
+  - naam: Templates & Formats
+    omschrijving: Standaard sjablonen voor projectdocumentatie.
+    url: ""
+  - naam: ODI Links
+    omschrijving: Overige relevante links binnen het ODI.
+    url: ""

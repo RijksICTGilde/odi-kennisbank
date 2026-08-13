@@ -1,0 +1,87 @@
+{{ define "main" }}
+{{- $vocab := hugo.Data.vocabulaire -}}
+{{- $facetNamen := partial "facet-namen.html" -}}
+
+<nldd-simple-section id="hoofdinhoud">
+  <nldd-title size="1">
+    {{- with index .Params.soorten 0 -}}
+      <span slot="overline">{{ index $vocab.soort . | default . }}</span>
+    {{- end -}}
+    <h1>{{ .Title }}</h1>
+  </nldd-title>
+  {{- with .Params.eigenaar -}}
+  <nldd-spacer size="8"></nldd-spacer>
+  <nldd-rich-text><p>Gepubliceerd door <strong>{{ . }}</strong></p></nldd-rich-text>
+  {{- end -}}
+  <nldd-spacer size="16"></nldd-spacer>
+  <nldd-rich-text>{{ .Content }}</nldd-rich-text>
+
+  {{- if .Params.url_ontbreekt -}}
+  <nldd-spacer size="16"></nldd-spacer>
+  <nldd-inline-dialog
+    icon="info"
+    text="Nog geen werkende link"
+    supporting-text="De SharePoint-export bevatte alleen de linktekst, niet het adres.{{ with .Params.linktekst }} Oorspronkelijke linktekst: {{ . }}{{ end }}"
+  ></nldd-inline-dialog>
+  {{- else -}}
+    {{- with .Params.bron_url -}}
+    <nldd-spacer size="16"></nldd-spacer>
+    <nldd-button variant="primary" href="{{ . }}" text="Naar de bron" end-icon="external-link"></nldd-button>
+    {{- end -}}
+  {{- end -}}
+</nldd-simple-section>
+
+<nldd-simple-section padding-top="0">
+  <nldd-title size="3" slot="header"><h2>Kenmerken</h2></nldd-title>
+  <nldd-container layout="stack" gap="16">
+    {{- range $meervoud, $enkelvoud := $facetNamen -}}
+      {{- $waarden := index $.Params $meervoud -}}
+      {{- if $waarden -}}
+      <nldd-container layout="stack" gap="6">
+        <nldd-title size="6"><h3>{{ $meervoud | humanize }}</h3></nldd-title>
+        <nldd-container layout="wrap" gap="6">
+          {{- range $waarden -}}
+          <nldd-tag size="sm" text="{{ index (index $vocab $enkelvoud) . | default . }}"></nldd-tag>
+          {{- end -}}
+        </nldd-container>
+      </nldd-container>
+      {{- end -}}
+    {{- end -}}
+    {{- with .Params.review_vanaf -}}
+    {{- $d := time.AsTime . -}}
+    <nldd-container layout="stack" gap="6">
+      <nldd-title size="6"><h3>Nagekeken tot</h3></nldd-title>
+      <nldd-rich-text><p><time datetime="{{ $d.Format "2006-01-02" }}">{{ time.Format ":date_long" $d }}</time></p></nldd-rich-text>
+    </nldd-container>
+    {{- end -}}
+  </nldd-container>
+</nldd-simple-section>
+
+{{- /* Directe link naar het bestand op GitHub, zodat een correctie twee
+       klikken kost in plaats van zoeken in de repository. */ -}}
+{{- with .File -}}
+<nldd-simple-section padding-top="0">
+  <nldd-button
+    variant="neutral-transparent"
+    size="sm"
+    href="{{ site.Params.repo }}/edit/main/sites/odi/content/kennisbank/{{ .Path }}"
+    text="Bewerk deze pagina op GitHub"
+    end-icon="external-link"
+  ></nldd-button>
+</nldd-simple-section>
+{{- end -}}
+
+{{- $verwant := slice -}}
+{{- with .Params.themas -}}
+  {{- $verwant = where (where (where site.RegularPages "Section" "kennisbank") "Params.bron" "!=" false) "Params.themas" "intersect" . -}}
+{{- end -}}
+{{- $verwant = first 3 (where $verwant "Permalink" "!=" .Permalink) -}}
+{{- with $verwant -}}
+<nldd-simple-section padding-top="0">
+  <nldd-title size="2" slot="header"><h2>Verwante bronnen</h2></nldd-title>
+  <nldd-collection layout="grid" item-width="320px">
+    {{- range . -}}{{- partial "bron-kaart.html" . -}}{{- end -}}
+  </nldd-collection>
+</nldd-simple-section>
+{{- end -}}
+{{ end }}

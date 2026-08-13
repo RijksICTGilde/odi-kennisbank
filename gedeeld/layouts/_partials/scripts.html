@@ -1,0 +1,17 @@
+{{/* Het NLDD-bundel registreert alle nldd-* custom elements. Defer, zoals in
+     Wies: de componenten upgraden na het parsen van de HTML. */}}
+<script defer src="{{ relURL "vendor/nldd/nldd.min.js" }}"></script>
+{{/* Paginascripts: een template zet .Scratch "paginaScripts" met assetpaden.
+     Een block werkt hier niet, want dit is een partial. */}}
+{{ if site.Params.zoeken | default true }}
+  {{ $fuse := resources.Get "vendor/fuse/fuse.min.js" }}
+  {{ $zoek := resources.Get "js/zoeken.js" }}
+  {{ $bundel := slice $fuse $zoek | resources.Concat "js/zoeken-bundel.js" | fingerprint "md5" }}
+  <script src="{{ $bundel.RelPermalink }}" defer></script>
+{{ end }}
+{{ range .Scratch.Get "paginaScripts" }}
+  {{ with resources.Get . }}
+    {{ $js := . | fingerprint "md5" }}
+    <script src="{{ $js.RelPermalink }}" defer></script>
+  {{ end }}
+{{ end }}

@@ -1,0 +1,85 @@
+/* Alleen de ruimte tússen NLDD-componenten. Alle waarden komen uit
+   --primitives-*; niets hardcoded, zodat licht/donker en de huisstijl
+   automatisch meebewegen.
+   Zie de NLDD-skill: "als je tegen een component vecht, gebruik je het
+   verkeerd" — hier staat dus geen enkele override van een component. */
+
+/* nldd-page is de layout én de scroller (height: 100%), dus de keten tot aan
+   de documentwortel moet een bepaalde hoogte hebben om tegen af te rekenen.
+   Zonder dit groeit nldd-page mee met zijn inhoud en scrollt het muiswiel
+   nergens heen. Overgenomen uit app.css van Wies. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Het design system zet zelf geen font op body; losse tekst valt anders terug
+   op de serif-standaard van de browser. */
+body {
+  font-family: var(--primitives-font-family-body, system-ui, sans-serif);
+  color: var(--semantics-content-color, #1a1a1a);
+}
+
+/* Het filterpaneel en de resultaten naast elkaar. Onder de md-breakpoint
+   (641px) stapelen ze; NLDD's eigen breakpoints zijn sm <=640, md 641-1007. */
+.filter-layout {
+  display: grid;
+  gap: var(--primitives-space-24);
+  align-items: start;
+  grid-template-columns: minmax(15rem, 18rem) 1fr;
+}
+
+@media (max-width: 1007px) {
+  .filter-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Een bron zonder resultaten: gecentreerde melding in het resultatenvlak. */
+.geen-resultaten {
+  padding-block: var(--primitives-space-32);
+}
+
+.bron-item[hidden] {
+  display: none;
+}
+
+/* Raster voor de filterbare bronnenlijst. nldd-collection kan hier niet:
+   die paginaert zelf met hidden, wat botst met het filter. */
+/* Grid en geen CSS-kolommen: bij kolommen bepaalt de hoogte van de eerste
+   kolom hoeveel er past, en met weinig kaarten (bijv. na filteren op één
+   soort) lopen de overige kolommen buiten de container door en vallen ze weg.
+   Een grid wrapt altijd netjes.
+
+   align-items:start houdt elke kaart op zijn eigen hoogte in plaats van
+   opgerekt tot de hoogste van de rij. */
+.bron-raster {
+  display: grid;
+  gap: var(--primitives-space-16);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  align-items: start;
+}
+
+.bron-item > nldd-card {
+  width: 100%;
+}
+
+/* Knop in markdown-content (bijv. "Nieuwe bron aanmaken op GitHub"). In
+   rich-text kan geen nldd-button staan, dus dit is een link die eruitziet als
+   een knop, opgebouwd uit dezelfde tokens. */
+.knop-link {
+  display: inline-block;
+  padding: var(--primitives-space-8) var(--primitives-space-16);
+  background: var(--semantics-action-primary-background-color, #154273);
+  color: #fff;
+  border-radius: var(--primitives-border-radius-8, 8px);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.knop-link:hover,
+.knop-link:focus-visible {
+  text-decoration: underline;
+}

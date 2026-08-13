@@ -1,0 +1,17 @@
+{{- /* Zie Wies: de kop staat bewust buiten nldd-rich-text, want daar krijgt
+       een h2 de koppenschaal van een paginatitel. Met nldd-title stel je het
+       formaat los van het niveau in. */ -}}
+<nldd-page-footer slot="footer" width="1440px">
+  <nldd-container>
+    <nldd-title size="4">
+      <h2>Over {{ site.Title }}</h2>
+    </nldd-title>
+    <nldd-spacer size="8" direction="vertical"></nldd-spacer>
+    <nldd-rich-text>
+      <p>{{ site.Params.description }}</p>
+      <p>
+        <a href="{{ site.Params.repo }}">Broncode op GitHub</a>
+      </p>
+    </nldd-rich-text>
+  </nldd-container>
+</nldd-page-footer>

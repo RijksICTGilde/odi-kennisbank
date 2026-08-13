@@ -1,0 +1,35 @@
+{{- /* Bouwt de GitHub-URL die een nieuw bestand opent mét het sjabloon er al
+       in. GitHub accepteert ?filename= en ?value= op de /new/-route, dus de
+       bijdrager hoeft niets te kopieren en plakken.
+
+       Het sjabloon staat hier en niet in de content, zodat de voorbeeldwaarden
+       gegarandeerd bestaande waarden uit vocabulaire.yaml zijn. */ -}}
+{{- $sjabloon := `---
+title: Titel van de bron
+eigenaar: Naam van de organisatie
+description: Een of twee zinnen over wat dit is en voor wie het nuttig is.
+expertises:
+  - agile-project-programma-en-portfoliomanagement
+soorten:
+  - handreiking
+doelgroepen:
+  - projectmanager
+themas:
+  - governance
+bron_url: https://example.org/vervang-door-de-echte-link
+---
+
+De volledige toelichting. Een of twee alinea's is genoeg; dit is een
+verwijzing naar de bron, niet de bron zelf.
+` -}}
+{{- /* urlquery codeert spaties als '+', wat in een query-waarde als een plus
+       aankomt en het sjabloon onleesbaar maakt. Daarom %20.
+
+       De scheidingstekens tussen de queryparameters komen uit printf met %s
+       in plaats van als letterlijke '&': een & in de opmaakstring wordt door
+       Hugo alsnog geescaped, ook achter safeURL. */ -}}
+{{- $waarde := replace ($sjabloon | urlquery) "+" "%20" -}}
+{{- /* return in plaats van uitprinten: bij uitprinten behandelt Hugo de
+       partial-uitvoer als HTML en escapet het scheidingsteken alsnog. */ -}}
+{{- return printf "%s/new/main/sites/odi/content/kennisbank?filename=nieuwe-bron.md&value=%s"
+    site.Params.repo $waarde -}}

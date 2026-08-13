@@ -1,0 +1,44 @@
+{{- /* Moza's koporde: sitenaam en navigatie naast het Rijkslogo. De
+       onderdelen komen uit NLDD, zodat huisstijl, focusgedrag en
+       toegankelijkheid uit het systeem komen in plaats van uit eigen CSS.
+
+       Geen website-title of -subtitle: de organisatienaam staat al op het
+       logo en de sitenaam als paginatitel eronder. Beide herhalen in de balk
+       leverde dezelfde tekst twee keer boven elkaar op. */ -}}
+<nldd-top-navigation-bar
+  slot="header"
+  width="1440px"
+  logo-title="Rijksorganisatie voor Ontwikkeling, Digitalisering en Innovatie"
+  website-href="{{ site.Home.RelPermalink }}"
+>
+  <nldd-menu-bar slot="global" accessible-label="Hoofdnavigatie">
+    {{- range site.Menus.main -}}
+      {{- /* Home is alleen actief op de homepage zelf; de andere items ook op
+             hun onderliggende pagina's. Bij geneste items (/kennisbank/ en
+             /kennisbank/bijdragen/) zou dat er twee tegelijk oplichten, dus
+             wint het langste pad dat past. */ -}}
+      {{- $url := .URL -}}
+      {{- $langste := "" -}}
+      {{- range site.Menus.main -}}
+        {{- if and (ne .URL "/") (hasPrefix $.RelPermalink .URL) (gt (len .URL) (len $langste)) -}}
+          {{- $langste = .URL -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $actief := cond (eq $url "/") (eq $.RelPermalink "/") (eq $url $langste) -}}
+      <nldd-menu-bar-item
+        text="{{ .Name }}"
+        href="{{ $url }}"
+        {{ if $actief }}current{{ end }}
+      ></nldd-menu-bar-item>
+    {{- end -}}
+  </nldd-menu-bar>
+  {{- if site.Params.zoeken | default true -}}
+  <nldd-button
+    slot="utility"
+    variant="neutral-transparent"
+    start-icon="search"
+    text="Zoeken"
+    data-zoek-open
+  ></nldd-button>
+  {{- end -}}
+</nldd-top-navigation-bar>

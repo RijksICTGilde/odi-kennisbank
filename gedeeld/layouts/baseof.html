@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body>
+    {{- /* nldd-page is de schil: header in het header-slot, inhoud in het
+           default slot, footer in het footer-slot. Zonder sticky-header is de
+           host zelf de scroll-container.
+
+           De skip-link zit in nldd-top-navigation-bar zelf; nldd-skip-link is
+           een wrapper om overslaanbare inhoud en hoort hier niet los. */ -}}
+    <nldd-page>
+      {{ partial "header.html" . }}
+      {{- block "main" . }}{{ end -}}
+      {{ partial "footer.html" . }}
+    </nldd-page>
+    {{ if site.Params.zoeken | default true }}{{ partial "zoeken.html" . }}{{ end }}
+    {{ partial "scripts.html" . }}
+  </body>
+</html>

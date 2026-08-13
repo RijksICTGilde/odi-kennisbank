@@ -1,0 +1,97 @@
+# Toegestane waarden per facet. Dit bestand is de bron van waarheid: het
+# importscript mapt hiernaartoe en de CI-check in .github/workflows/validate.yml
+# weigert frontmatter met waarden die hier niet in staan.
+#
+# Sleutel = slug (zoals in frontmatter en URL), waarde = weergavenaam.
+#
+# 'expertise' is de bovenste as en komt overeen met de indeling in Wies (zie
+# sites/start/data/expertises.yaml). De kennisbank begon bij programma- en
+# projectmanagement; nieuwe bronnen uit andere gebieden krijgen hun eigen
+# expertise, zodat de collectie kan groeien zonder herindeling.
+
+expertise:
+  agile-project-programma-en-portfoliomanagement: Agile, project- programma- en portfoliomanagement
+  ai: AI
+  architectuur-en-technologie: Architectuur en technologie
+  cloud-en-platform-technologie: Cloud en platform technologie
+  ict: ICT
+  interimmanagement-en-advies: Interimmanagement en advies
+  kennis-en-innovatiemanagement: Kennis- en innovatiemanagement
+  opleiding-training-en-ontwikkeling: Opleiding, training en ontwikkeling
+  proces-en-ketenmanagement: Proces- en ketenmanagement
+  security-en-privacy: Security en privacy
+  software-en-data-engineering: Software en data engineering
+  strategie-beleid-governance-en-compliance: Strategie, beleid, governance en compliance
+  verander-en-transformatiemanagement: Verander- en transformatiemanagement
+
+soort:
+  handreiking: Handreiking
+  kader: Kader
+  sjabloon: Sjablonen
+  educatie: Educatie
+  ondersteuning: Ondersteuning
+  best-practice: Best practice
+  interessante-informatie: Interessante informatie
+
+doelgroep:
+  projectmanager: Projectmanager
+  opdrachtgever: Opdrachtgever
+  product-owner: Product Owner
+  epic-owner: Epic Owner
+  scrum-master: Scrum Master
+
+fase:
+  startup: Startup fase
+  initiatie: Initiatiefase
+  definitie: Definitiefase
+  ontwerp: Ontwerpfase
+  voorbereiding: Voorbereidingsfase
+  realisatie: Realisatiefase
+  nazorg: Nazorg
+  agile-concept: Agile - Concept
+  agile-aanvang: Agile - Aanvang
+  agile-iteratie: Agile - Iteratie
+  agile-release: Agile - Release
+  agile-productie: Agile - Productie
+  agile-veroudering: Agile - Veroudering
+  niet-fasegebonden: Niet specifiek gerelateerd aan een fase
+
+thema:
+  toetsing-audit: Toetsing / audit
+  keuze-aanpak: Keuze aanpak
+  governance: Governance
+  inkoop: Inkoop
+  senior-responsible-owner: Senior Responsible Owner
+  opdrachtgeverschap: Opdrachtgeverschap
+  requirements-management: Requirements Management
+  inrichten-stuurgroep: Inrichten stuurgroep
+  woo: Wet Open Overheid (WOO) relevant
+  security: Security
+  change-management: Change Management
+  leverancier: Leverancier
+  msp: Managing Successful Programmes (MSP)
+  batenmanagement: Batenmanagement
+  leveranciersmanagement: Leveranciersmanagement
+  datamanagement: Datamanagement
+  privacy: Privacy
+  kwaliteitsmanagement: Kwaliteitsmanagement
+  sourcing: Sourcing
+  klantbeleving: Klantbeleving
+  architectuur: Architectuur
+  agile: Agile
+  beleid-en-regelgeving: Beleid- en regelgeving
+  lifecycle-management: Lifecycle management (LCM)
+  compliancy: Compliancy
+  informatiehuishouding: Informatiehuishouding
+  communicatie: Communicatie
+  algoritme: Algoritme
+  digitalisering: Digitalisering
+  team: Team
+  ai: AI
+  cloud: Cloud
+  ethiek: Ethiek
+  stakeholdermanagement: Stakeholdermanagement
+  politiek: Politiek
+  datagedreven: Datagedreven
+  samenwerken: Samenwerken
+  overig: Overig/niet bekend

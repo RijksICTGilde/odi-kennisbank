@@ -1,0 +1,30 @@
+name: Valideer en bouw
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  valideer:
+    name: Controleer frontmatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Valideer bronnen tegen het vocabulaire
+        run: ./scripts/valideer_bronnen.py
+
+  bouw:
+    name: Bouw de site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.164.0"
+          extended: true
+      # --printPathWarnings vangt dubbele output-paden; de build faalt al bij
+      # een template- of contentfout.
+      - name: Bouw
+        run: cd sites/odi && hugo --minify --baseURL / --printPathWarnings

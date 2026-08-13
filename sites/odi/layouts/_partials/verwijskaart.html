@@ -1,0 +1,33 @@
+{{- /* Verwijst naar een bestaande bron of tool. Zonder bekende URL geen link
+       maar een nldd-tag met de status: Phase 0 verwijst naar wat er al is, en
+       wat er nog niet is moet niet als werkend ogen. */ -}}
+{{- $url := .url | default "" -}}
+{{- $heeftUrl := ne $url "" -}}
+{{- /* Een interne verwijzing (zoals de Kennisbank in een submap) moet door
+       relURL, anders klopt hij niet onder het GitHub Pages-subpad. Externe
+       links blijven ongemoeid en krijgen rel-attributen mee. */ -}}
+{{- $extern := hasPrefix $url "http" -}}
+{{- $href := cond $extern $url (relURL $url) -}}
+<nldd-card
+  background="tinted"
+  {{- if $heeftUrl }} href="{{ $href }}" accessible-label="{{ .naam }}"{{ end }}
+  {{- if $extern }} rel="external noopener noreferrer"{{ end }}
+>
+  <nldd-container padding="16">
+    <nldd-title size="5">
+      <h3>{{ .naam }}</h3>
+    </nldd-title>
+    <nldd-spacer size="8"></nldd-spacer>
+    <nldd-rich-text>
+      <p>{{ .omschrijving }}</p>
+    </nldd-rich-text>
+    {{- if not $heeftUrl -}}
+    <nldd-spacer size="8"></nldd-spacer>
+    <nldd-tag size="sm" text="Nog geen link"></nldd-tag>
+    {{- with .opmerking -}}
+    <nldd-spacer size="8"></nldd-spacer>
+    <nldd-rich-text><p><small>{{ . }}</small></p></nldd-rich-text>
+    {{- end -}}
+    {{- end -}}
+  </nldd-container>
+</nldd-card>

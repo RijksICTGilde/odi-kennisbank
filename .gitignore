@@ -1,0 +1,8 @@
+public/
+resources/
+.hugo_build.lock
+.DS_Store
+# De vervangingstabel bevat de originele persoons- en organisatienamen en
+# hoort niet in de repository. Pad-onafhankelijk, zodat een verhuizing van de
+# site-map hem niet alsnog meeneemt.
+anonimisering.yaml

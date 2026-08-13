@@ -1,0 +1,9 @@
+{{- /* Meervoud (taxonomienaam/URL) -> enkelvoud (sleutel in vocabulaire.yaml).
+       Eén plek, zodat een nieuw facet niet in drie templates bijgewerkt hoeft. */ -}}
+{{- return dict
+  "expertises" "expertise"
+  "soorten" "soort"
+  "doelgroepen" "doelgroep"
+  "fases" "fase"
+  "themas" "thema"
+-}}

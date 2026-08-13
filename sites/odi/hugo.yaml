@@ -1,0 +1,82 @@
+baseURL: https://rijksictgilde.github.io/odi-kennisbank/
+title: ODI Start
+defaultContentLanguage: nl
+
+params:
+  # Eén plek voor de repo-URL, zodat links in de content niet verouderen.
+  repo: https://github.com/RijksICTGilde/odi-kennisbank
+  tagline: Rijksorganisatie voor Ontwikkeling, Digitalisering en Innovatie
+  description: De startplek voor kennis over digitalisering binnen het ODI. Vind expertises, kennisbronnen en tools op één plek.
+
+  footer:
+    tagline: Eén Overheid. Voor iedereen!
+    links: Zie ook
+    rechts: Over deze site
+
+# Zie sites/kennisbank-pm/hugo.yaml: de vormgeving komt uit ../../gedeeld.
+module:
+  mounts:
+    - source: content
+      target: content
+    - source: data
+      target: data
+    - source: layouts
+      target: layouts
+    - source: ../../gedeeld/layouts
+      target: layouts
+    - source: ../../gedeeld/assets
+      target: assets
+    - source: ../../gedeeld/static
+      target: static
+
+# De vijf assen waarop de kennisbank bronnen classificeert.
+taxonomies:
+  expertise: expertises
+  soort: soorten
+  doelgroep: doelgroepen
+  fase: fases
+  thema: themas
+
+enableRobotsTXT: true
+
+security:
+  allowContent:
+    - ^text/markdown$
+    - ^text/html$
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+# Expertises en Kennisbronnen staan al als blok op de homepage en in de
+# footer; in de balk zouden ze dat dubbelop doen.
+menus:
+  main:
+    - name: Home
+      pageRef: /
+      weight: 1
+    - name: Kennisbank
+      pageRef: /kennisbank
+      weight: 2
+    - name: Bijdragen
+      pageRef: /kennisbank/bijdragen
+      weight: 3
+
+  footer-links:
+    - name: Expertises
+      pageRef: /expertises
+      weight: 1
+    - name: Kennisbronnen
+      pageRef: /kennisbronnen
+      weight: 2
+
+  footer-rechts:
+    - name: Over deze site
+      pageRef: /over
+      weight: 1
+
+outputs:
+  home:
+    - HTML
+    - JSON

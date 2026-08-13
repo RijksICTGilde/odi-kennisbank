@@ -1,0 +1,33 @@
+{{- /* Eén bron in een overzicht. Patroon overgenomen uit Wies
+       (parts/colleague_assignment_cards.html): card met href en
+       accessible-label, padding in een geneste container, tags als nldd-tag.
+       nldd-card zet zelf geen padding. */ -}}
+{{- $vocab := hugo.Data.vocabulaire -}}
+<nldd-card background="tinted" href="{{ .RelPermalink }}" accessible-label="{{ .Title }}">
+  <nldd-container padding="16">
+    <nldd-title size="5">
+      <h3>{{ .Title }}</h3>
+    </nldd-title>
+    {{- with .Params.description -}}
+    <nldd-spacer size="8"></nldd-spacer>
+    <nldd-rich-text><p>{{ . }}</p></nldd-rich-text>
+    {{- end -}}
+    {{- $tags := slice -}}
+    {{- with index .Params.soorten 0 -}}
+      {{- $tags = $tags | append (index $vocab.soort . | default .) -}}
+    {{- end -}}
+    {{- range first 2 (.Params.themas | default slice) -}}
+      {{- $tags = $tags | append (index $vocab.thema . | default .) -}}
+    {{- end -}}
+    {{- with $tags -}}
+    <nldd-spacer size="8"></nldd-spacer>
+    <nldd-container layout="wrap" gap="6">
+      {{- range . -}}<nldd-tag size="sm" text="{{ . }}"></nldd-tag>{{- end -}}
+    </nldd-container>
+    {{- end -}}
+    {{- with .Params.eigenaar -}}
+    <nldd-spacer size="8"></nldd-spacer>
+    <nldd-rich-text><p><small>{{ . }}</small></p></nldd-rich-text>
+    {{- end -}}
+  </nldd-container>
+</nldd-card>

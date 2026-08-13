@@ -1,0 +1,23 @@
+# Afwijkende schrijfwijzen uit de SharePoint-export, gemapt naar de slugs in
+# vocabulaire.yaml. Toegevoegd op basis van analyse van de export van 12-08-2026.
+#
+# Alleen eenduidige gevallen staan hier: tikfouten, afkortingen en
+# exportartefacten. Inhoudelijke twijfelgevallen worden NIET geraden maar door
+# het importscript gelogd als 'ongemapt', zodat een mens beslist.
+
+thema:
+  # Tikfout; komt in de export vaker voor (6x) dan de juiste spelling (3x).
+  Kwaliteitsmanagament: kwaliteitsmanagement
+  # Dubbele s.
+  Opdrachtgeversschap: opdrachtgeverschap
+  # Afkorting naast de voluit geschreven variant.
+  MSP: msp
+
+fase:
+  # Exportartefacten: vraagtekens uit de SharePoint-kolomdefinitie.
+  "Startup fase??": startup
+  "?Initiatiefase": initiatie
+
+soort:
+  # Eén rij heeft een leeg meervoudig veld dat als ';#' is geëxporteerd.
+  "": null

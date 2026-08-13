@@ -1,0 +1,42 @@
+{{ define "main" }}
+<nldd-simple-section id="hoofdinhoud">
+  <nldd-title size="1"><h1>{{ .Title }}</h1></nldd-title>
+  <nldd-spacer size="16"></nldd-spacer>
+  <nldd-rich-text>{{ .Content }}</nldd-rich-text>
+</nldd-simple-section>
+
+{{- if eq .File.ContentBaseName "expertises" -}}
+<nldd-simple-section padding-top="0">
+  {{- /* Korte, gelijkwaardige items: een lijst leest rustiger dan kaarten.
+         De rij linkt naar Wies, waar de collega's per expertise staan. */ -}}
+  <nldd-list variant="box" accessible-label="Expertises binnen ODI">
+    {{- range hugo.Data.expertises -}}
+    <nldd-list-item
+      id="{{ .slug }}"
+      size="md"
+      type="link"
+      href="https://wies.rijksorganisatieodi.nl"
+      rel="external noopener noreferrer"
+    >
+      <nldd-text-cell text="{{ .naam }}" supporting-text="{{ .omschrijving }}"></nldd-text-cell>
+    </nldd-list-item>
+    {{- end -}}
+  </nldd-list>
+</nldd-simple-section>
+{{- end -}}
+
+{{- if eq .File.ContentBaseName "kennisbronnen" -}}
+<nldd-simple-section padding-top="0">
+  <nldd-title size="2" slot="header"><h2>Kennisbronnen</h2></nldd-title>
+  <nldd-collection layout="grid" item-width="320px">
+    {{- range hugo.Data.bronnen.kennisbronnen -}}{{- partial "verwijskaart.html" . -}}{{- end -}}
+  </nldd-collection>
+</nldd-simple-section>
+<nldd-simple-section padding-top="0">
+  <nldd-title size="2" slot="header"><h2>Tools</h2></nldd-title>
+  <nldd-collection layout="grid" item-width="320px">
+    {{- range hugo.Data.bronnen.tools -}}{{- partial "verwijskaart.html" . -}}{{- end -}}
+  </nldd-collection>
+</nldd-simple-section>
+{{- end -}}
+{{ end }}

@@ -1,0 +1,31 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light dark" />
+{{- $pageTitle := site.Title -}}
+{{- if and (not .IsHome) .Title -}}
+  {{- $pageTitle = printf "%s | %s" .Title site.Title -}}
+{{- end -}}
+<title>{{ $pageTitle }}</title>
+{{- $description := .Description | default site.Params.description -}}
+<meta name="description" content="{{ $description }}" />
+<link rel="canonical" href="{{ .Permalink }}" />
+
+<link rel="icon" href="{{ relURL "favicon.ico" }}" sizes="any" />
+<link rel="icon" href="{{ relURL "favicon-32x32.png" }}" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="{{ relURL "apple-touch-icon.png" }}" />
+
+<meta property="og:title" content="{{ $pageTitle }}" />
+<meta property="og:description" content="{{ $description }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+<meta property="og:site_name" content="{{ site.Title }}" />
+<meta property="og:locale" content="nl_NL" />
+
+{{/* Het NLDD design system levert tokens, fonts en de Rijkshuisstijl. Zie
+     gedeeld/static/vendor/nldd/VERSION.txt voor de versie. */}}
+<link rel="stylesheet" href="{{ relURL "vendor/nldd/css/global.css" }}" />
+
+{{/* Eigen aanvullingen: alleen de ruimte tússen componenten, opgebouwd uit
+     --primitives-* tokens. */}}
+{{ $eigen := resources.Get "css/eigen.css" | fingerprint "md5" }}
+<link rel="stylesheet" href="{{ $eigen.RelPermalink }}" />
