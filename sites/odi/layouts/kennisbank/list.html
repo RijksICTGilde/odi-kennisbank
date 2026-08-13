@@ -86,28 +86,50 @@
              De filterknop opent de sheet van nldd-sidebar-section, dat zelf
              geen trigger meelevert, en staat alleen in ingeklapte staat. */ -}}
       <nldd-toolbar label="Zoeken en filteren">
-        <nldd-toolbar-item slot="start" width="560px" max-width="560px" min-width="240px">
+        {{- /* Hoogste priority: zoeken is de belangrijkste actie op deze
+               pagina en mag als laatste wijken. min-width laat het veld
+               krimpen tot 160px voordat de toolbar het opgeeft. */ -}}
+        <nldd-toolbar-item slot="start" priority="3" width="560px" max-width="560px" min-width="160px">
           <nldd-search-field
             id="bronnen-zoek"
             accessible-label="Zoek in de bronnen"
             placeholder="Zoek op titel, toelichting of organisatie"
           ></nldd-search-field>
         </nldd-toolbar-item>
-        <nldd-toolbar-item id="filter-item" slot="end">
+        {{- /* Elk item krijgt een nldd-menu-item in slot=overflow mee, zoals
+               in Wies: past de knop niet meer, dan toont de toolbar het
+               menu-alternatief in plaats van hem te laten verdwijnen.
+
+               'Een bron toevoegen' heeft de laagste priority en verhuist dus
+               als eerste; filteren is bij het bladeren de belangrijkste actie
+               en blijft daardoor het langst zichtbaar. */ -}}
+        <nldd-toolbar-item id="filter-item" slot="end" priority="2">
           <nldd-button
             id="filters-openen"
             variant="secondary"
             start-icon="list-decreasing-lines"
             text="Filteren"
           ></nldd-button>
+          <nldd-menu-item
+            slot="overflow"
+            id="filters-openen-menu"
+            text="Filteren"
+            icon="list-decreasing-lines"
+          ></nldd-menu-item>
         </nldd-toolbar-item>
-        <nldd-toolbar-item slot="end">
+        <nldd-toolbar-item slot="end" priority="1">
           <nldd-button
             variant="secondary"
             start-icon="plus"
             href="{{ "kennisbank/bijdragen/" | relURL }}"
             text="Een bron toevoegen"
           ></nldd-button>
+          <nldd-menu-item
+            slot="overflow"
+            icon="plus"
+            href="{{ "kennisbank/bijdragen/" | relURL }}"
+            text="Een bron toevoegen"
+          ></nldd-menu-item>
         </nldd-toolbar-item>
       </nldd-toolbar>
       <nldd-spacer size="16"></nldd-spacer>

@@ -24,16 +24,7 @@ body {
 
 /* Het filterpaneel en de resultaten naast elkaar. Onder de md-breakpoint
    (641px) stapelen ze; NLDD's eigen breakpoints zijn sm <=640, md 641-1007. */
-/* De filterknop hoort alleen bij de ingeklapte (sheet-)staat van
-   nldd-sidebar-section; op brede schermen staan de filters gewoon links. */
-#filter-item {
-  display: none;
-}
-
-nldd-sidebar-section[collapsed] #filter-item {
-  display: contents;
-}
-
+/* De sheet draagt zelf al de titel "Filteren" via sidebar-label. */
 nldd-sidebar-section[collapsed] .filter-kop {
   display: none;
 }
@@ -59,16 +50,7 @@ nldd-sidebar-section[collapsed] .filter-kop {
 }
 
 @media (max-width: 1007px) {
-  /* De filterknop hoort alleen bij de ingeklapte (sheet-)staat van
-   nldd-sidebar-section; op brede schermen staan de filters gewoon links. */
-#filter-item {
-  display: none;
-}
-
-nldd-sidebar-section[collapsed] #filter-item {
-  display: contents;
-}
-
+  /* De sheet draagt zelf al de titel "Filteren" via sidebar-label. */
 nldd-sidebar-section[collapsed] .filter-kop {
   display: none;
 }

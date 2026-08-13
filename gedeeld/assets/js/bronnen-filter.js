@@ -154,11 +154,18 @@
     const openKnop = document.getElementById("filters-openen");
     const sectie = document.querySelector("nldd-sidebar-section");
     if (openKnop && sectie) {
-      openKnop.addEventListener("click", () => {
+      const openen = () => {
         if (typeof sectie.show === "function") sectie.show();
         else if (typeof sectie.toggle === "function") sectie.toggle();
-      });
+      };
+      openKnop.addEventListener("click", openen);
+      // In het overflowmenu toont de toolbar een KLOON van het menu-item en
+      // meldt de keuze terug als 'select' op het origineel; daarom luisteren we
+      // daarop en niet op een klik. Zie primary_button_menu_item.html in Wies.
+      const menuItem = document.getElementById("filters-openen-menu");
+      if (menuItem) menuItem.addEventListener("select", openen);
     }
+
 
     if (wisKnop) {
       wisKnop.addEventListener("click", () => {
