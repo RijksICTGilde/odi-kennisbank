@@ -2,6 +2,7 @@
 title: Bijdragen
 # Deze pagina staat in de kennisbank-sectie maar is zelf geen bron.
 bron: false
+layout: bijdragen
 ---
 
 Een bron toevoegen of corrigeren kan volledig via de webinterface van GitHub —

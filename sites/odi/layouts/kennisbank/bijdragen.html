@@ -1,0 +1,21 @@
+{{ define "main" }}
+{{- /* Eigen template voor de bijdragen-pagina: die staat in de
+       kennisbank-sectie maar is geen bron, en heeft dus niets aan de facetten
+       en 'naar de bron'-knop van single.html. */ -}}
+<nldd-simple-section id="hoofdinhoud">
+  <nldd-title size="1"><h1>{{ .Title }}</h1></nldd-title>
+  <nldd-spacer size="16"></nldd-spacer>
+  <nldd-rich-text>{{ .Content }}</nldd-rich-text>
+  {{- /* De knop opent een nieuw bestand op GitHub met het sjabloon er al in;
+         zie nieuwe-bron-url.html. Hij staat hier en niet als shortcode in de
+         markdown, want Goldmark escapet de & in de query-string waardoor het
+         sjabloon niet doorkomt. */ -}}
+  <nldd-spacer size="24"></nldd-spacer>
+  <nldd-button
+    variant="primary"
+    href="{{ partial "nieuwe-bron-url.html" . | safeURL }}"
+    text="Nieuwe bron aanmaken op GitHub"
+    end-icon="external-link"
+  ></nldd-button>
+</nldd-simple-section>
+{{ end }}
