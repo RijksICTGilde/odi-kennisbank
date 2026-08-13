@@ -12,20 +12,12 @@
   (dict "meervoud" "themas" "enkelvoud" "thema" "label" "Thema")
 -}}
 
-<nldd-simple-section id="hoofdinhoud">
-  <nldd-title size="1"><h1>{{ .Title }}</h1></nldd-title>
-  {{ with .Params.intro }}
-  <nldd-spacer size="16"></nldd-spacer>
-  <nldd-rich-text><p>{{ . }}</p></nldd-rich-text>
-  {{ end }}
-</nldd-simple-section>
-
 {{- /* nldd-sidebar-section in plaats van een eigen grid: op smalle schermen
        verhuist de zijbalk zelf naar een sheet met een knop, zoals in Wies.
        Een eigen media-query stapelde de filters simpelweg boven de resultaten,
        waardoor je op mobiel eerst langs alle facetten moest scrollen. */ -}}
 <nldd-sidebar-section
-  padding-top="0"
+  id="hoofdinhoud"
   width="1440px"
   sidebar-label="Filteren"
   translations='{"components.sidebar-section.sheet-dismiss-action": "Klaar"}'
@@ -76,6 +68,15 @@
   </nldd-container>
 
   <div>
+      {{- /* Titel en intro in de hoofdkolom, niet in een sectie erboven: zo
+             begint de filterkolom op dezelfde hoogte als de inhoud, zoals in
+             assignments.html van Wies. */ -}}
+      <nldd-title size="3"><h1>{{ .Title }}</h1></nldd-title>
+      {{ with .Params.intro }}
+      <nldd-spacer size="8"></nldd-spacer>
+      <nldd-rich-text><p>{{ . }}</p></nldd-rich-text>
+      {{ end }}
+      <nldd-spacer size="16"></nldd-spacer>
       {{- /* nldd-sidebar-section klapt zichzelf in op smalle schermen maar
       {{- /* Toolbar zoals in Wies (filter_and_card_container_assignments.html):
              zoeken in het start-slot, acties in end. De toolbar verdeelt zelf
