@@ -1,10 +1,10 @@
-baseURL: https://rijksictgilde.github.io/odi-kennisbank/
-title: ODI Start
+baseURL: https://rijksictgilde.github.io/odi-startpagina/
+title: ODI Startpagina
 defaultContentLanguage: nl
 
 params:
   # Eén plek voor de repo-URL, zodat links in de content niet verouderen.
-  repo: https://github.com/RijksICTGilde/odi-kennisbank
+  repo: https://github.com/RijksICTGilde/odi-startpagina
   tagline: Rijksorganisatie voor Ontwikkeling, Digitalisering en Innovatie
   description: De startplek voor kennis over digitalisering binnen het ODI. Vind expertises, kennisbronnen en tools op één plek.
 

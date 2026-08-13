@@ -15,6 +15,7 @@ themas:
 - opdrachtgeverschap
 expertises:
 - agile-project-programma-en-portfoliomanagement
+uit_export: true
 bron_url: https://example.org/te-vervangen
 url_ontbreekt: true
 linktekst: Leergang I-leiderschap (maatwerk BR en MT) - Algemene Bestuursdienst

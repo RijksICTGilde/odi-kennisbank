@@ -11,6 +11,7 @@ themas:
 - communicatie
 expertises:
 - agile-project-programma-en-portfoliomanagement
+uit_export: true
 bron_url: https://example.org/te-vervangen
 url_ontbreekt: true
 review_vanaf: 2026-09-10

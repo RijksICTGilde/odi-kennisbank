@@ -15,6 +15,7 @@ themas:
 - digitalisering
 expertises:
 - agile-project-programma-en-portfoliomanagement
+uit_export: true
 bron_url: https://example.org/te-vervangen
 url_ontbreekt: true
 linktekst: ICT-Digitalisering 1 op 1 coaching - Algemene Bestuursdienst

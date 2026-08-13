@@ -207,6 +207,21 @@ class Mapper:
         return list(dict.fromkeys(s for s in slugs if s))
 
 
+def lees_frontmatter(pad: Path) -> dict[str, Any] | None:
+    """Lees alleen het YAML-blok van een bestaand contentbestand."""
+    tekst = pad.read_text(encoding="utf-8")
+    if not tekst.startswith("---"):
+        return None
+    _, _, rest = tekst.partition("---\n")
+    kop, sep, _ = rest.partition("\n---")
+    if not sep:
+        return None
+    try:
+        return yaml.safe_load(kop) or {}
+    except yaml.YAMLError:
+        return None
+
+
 def lees_rijen(pad: Path) -> list[dict[str, str]]:
     ruw = pad.read_bytes().decode(BRON_ENCODING)
     # De export mengt CRLF, CR en LF door elkaar.
@@ -280,6 +295,10 @@ def frontmatter(bron: dict[str, Any], vandaag: date) -> dict[str, Any]:
     # worden toegevoegd.
     fm["expertises"] = ["agile-project-programma-en-portfoliomanagement"]
 
+    # Markeert dit bestand als gegenereerd, zodat een volgende import het mag
+    # vervangen of opruimen en handgeschreven bronnen met rust laat.
+    fm["uit_export"] = True
+
     fm["bron_url"] = "https://example.org/te-vervangen"
     fm["url_ontbreekt"] = True
     if bron["linktekst"]:
@@ -339,11 +358,20 @@ def main() -> int:
             gezien[slug] = 1
 
     if not args.dry_run:
-        if UITVOER.exists():
-            for oud in UITVOER.glob("*.md"):
-                if oud.name != "_index.md":
-                    oud.unlink()
+        # Alleen opruimen wat dit script eerder zelf schreef. In deze map staan
+        # ook handgeschreven pagina's (bijdragen.md, _index.md) en bronnen die
+        # via een pull request zijn toegevoegd; die mogen niet verdwijnen omdat
+        # ze niet in de export voorkomen. Gegenereerde bestanden herken je aan
+        # de vlag in de frontmatter.
         UITVOER.mkdir(parents=True, exist_ok=True)
+        nieuw = {f"{bron['slug']}.md" for bron in bronnen}
+        for oud in UITVOER.glob("*.md"):
+            if oud.name in nieuw:
+                continue
+            kop = lees_frontmatter(oud)
+            if kop and kop.get("uit_export"):
+                oud.unlink()
+
         for bron in bronnen:
             fm = frontmatter(bron, vandaag)
             schrijf_bestand(bron, fm, UITVOER / f"{bron['slug']}.md")
